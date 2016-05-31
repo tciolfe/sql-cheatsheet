@@ -1,0 +1,49 @@
+SQL notes: 
+
+Syntax overview: 
+
+Sweaty		=	SELECT
+Feet 		=	FROM
+Will		= 	WHERE
+Give 		= 	GROUP BY 
+Horrible 	= 	HAVING
+Odors		= 	ORDER BY
+
+*indentation isn't required, but is it helpful to develop a personal style to make it as readable as possible. 
+
+Common operators: 
+% 			= 	wildcard
+_			= 	wilcard for a single character (ie '_a%')
+
+
+How to use the WHERE clause: 
+-acts as a filter
+-uses boolean, so be careful and think about NULL values
+-uses operators, such as < > IS
+-uses typical keywords: OR / AND / LIKE / IN
+	-OR / AND
+		ie: 
+			SELECT *
+			FROM countries
+			WHERE population < 100000 OR population IS NULL AND continent = 'Oceania'
+			ORDER BY population; 
+		//this returns all countries with a population less than 100000, no population value and within the Oceania continent.
+
+	-LIKE 
+		ie: 
+			SELECT *
+			FROM countries
+			WHERE name LIKE '%island%'
+			ORDER BY name;
+		//this returns any country with the island in its name
+
+	- IN 
+		ie: 
+			SELECT * 
+			FROM countries 
+			WHERE continent IN ('Europe', 'Asia')
+			ORDER BY name;
+		//this returns countries with continents in europe and asia
+
+How to use COUNT: 
+-typically, use COUNT(*), then use the WHERE clause to filter the information counted. 
