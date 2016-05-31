@@ -4,14 +4,24 @@ SQL notes:
 
 Syntax overview: 
 
-	Sweaty		=	SELECT
-	Feet 		=	FROM
-	Will		= 	WHERE
-	Give 		= 	GROUP BY 
-	Horrible 	= 	HAVING
-	Odors		= 	ORDER BY
+		Sweaty		=	SELECT
+		Feet 		=	FROM
+		Will		= 	WHERE
+		Give 		= 	GROUP BY 
+		Horrible 	= 	HAVING
+		Odors		= 	ORDER BY
 
-	*indentation isn't required, but is it helpful to develop a personal style to make it as readable as possible. 
+		*indentation isn't required, but is it helpful to develop a personal style to make it as readable as possible. 
+
+	Think: 
+
+		SELECT 		= 	field(s)
+		FROM 		= 	tables
+		JOIN 		=	oher tables
+		WHERE 		=	criteria
+		GROUP BY 	=	any groups
+		HAVING		=	filters for grouped values
+		ORDER BY 	= 	sort order
 
 Common operators: 
 	% 			= 	wildcard
@@ -63,6 +73,11 @@ How to use SELECT DISTINCT statement:
 			//will return a list of all the continents and distinct populations
 			//*Need to be careful using two together. 
 
+How to use GROUP BY: 
+	-used to order your results 
+	-it groups results before calling the function 
+	-
+
 
 How to use ORDER BY: 
 	-used to sort results
@@ -77,6 +92,7 @@ How to use ORDER BY:
 
 How to use COUNT: 
 	-typically, use COUNT(*), then use the WHERE clause to filter the information counted. 
+	-if you want to count values, they have to be grouped using GROUP BY. 
 
 
 
