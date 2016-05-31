@@ -1,49 +1,219 @@
 SQL notes: 
 
+*good cheatsheets at: http://www.dofactory.com/sql/tutorial
+
 Syntax overview: 
 
-Sweaty		=	SELECT
-Feet 		=	FROM
-Will		= 	WHERE
-Give 		= 	GROUP BY 
-Horrible 	= 	HAVING
-Odors		= 	ORDER BY
+	Sweaty		=	SELECT
+	Feet 		=	FROM
+	Will		= 	WHERE
+	Give 		= 	GROUP BY 
+	Horrible 	= 	HAVING
+	Odors		= 	ORDER BY
 
-*indentation isn't required, but is it helpful to develop a personal style to make it as readable as possible. 
+	*indentation isn't required, but is it helpful to develop a personal style to make it as readable as possible. 
 
 Common operators: 
-% 			= 	wildcard
-_			= 	wilcard for a single character (ie '_a%')
+	% 			= 	wildcard
+	_			= 	wilcard for a single character (ie '_a%')
 
 
 How to use the WHERE clause: 
--acts as a filter
--uses boolean, so be careful and think about NULL values
--uses operators, such as < > IS
--uses typical keywords: OR / AND / LIKE / IN
-	-OR / AND
-		ie: 
-			SELECT *
-			FROM countries
-			WHERE population < 100000 OR population IS NULL AND continent = 'Oceania'
-			ORDER BY population; 
-		//this returns all countries with a population less than 100000, no population value and within the Oceania continent.
+	-acts as a filter
+	-uses boolean, so be careful and think about NULL values
+	-uses operators, such as < > IS
+	-uses typical keywords: OR / AND / LIKE / IN
+		-OR / AND
+			ie: 
+				SELECT *
+				FROM countries
+				WHERE population < 100000 OR population IS NULL AND continent = 'Oceania'
+				ORDER BY population; 
+			//this returns all countries with a population less than 100000, no population value and within the Oceania continent.
 
-	-LIKE 
-		ie: 
-			SELECT *
-			FROM countries
-			WHERE name LIKE '%island%'
-			ORDER BY name;
-		//this returns any country with the island in its name
+		-LIKE 
+			ie: 
+				SELECT *
+				FROM countries
+				WHERE name LIKE '%island%'
+				ORDER BY name;
+			//this returns any country with the island in its name
 
-	- IN 
-		ie: 
-			SELECT * 
-			FROM countries 
-			WHERE continent IN ('Europe', 'Asia')
-			ORDER BY name;
-		//this returns countries with continents in europe and asia
+		- IN 
+			ie: 
+				SELECT * 
+				FROM countries 
+				WHERE continent IN ('Europe', 'Asia')
+				ORDER BY name;
+			//this returns countries with continents in europe and asia
+
+How to use SELECT DISTINCT statement: 
+	-SELECT DISTINCT statement sorts the results and removes the duplicates
+	-can use it with one column or multiple, but typically just within one column
+		- ONE
+			ie: 
+				SELECT DISTINCT continent
+				FROM countries;
+			//will return a list of all the distinct continents
+
+		-TWO or more 
+			ie: 
+				SELECT DISTINCT continent, population 
+				FROM countries;
+			//will return a list of all the continents and distinct populations
+			//*Need to be careful using two together. 
+
+
+How to use ORDER BY: 
+	-used to sort results
+	-can also make the ordering more specific by using DESC and ASC (although, ASC is the default order by)
+		-can order on multiple columns and with specifity
+			ie: 
+				SELECT name, continent, region
+				FROM countries
+				ORDER BY continent DESC, region , name;
+			//this returns the continents in descending order (first), followed by the regions in ascending order (second), and the names in ascending order (third)
+
 
 How to use COUNT: 
--typically, use COUNT(*), then use the WHERE clause to filter the information counted. 
+	-typically, use COUNT(*), then use the WHERE clause to filter the information counted. 
+
+
+
+
+
+
+What are CONDITIONAL EXPRESSIONS?:
+	-  		
+
+
+
+Using JOINS:
+	what are JOINS?:
+	-joins are used to get results from two or more tables that are linked my some form of unique ID
+
+	SEE IMAGE: http://www.dofactory.com/Images/sql-joins.png
+
+	types of JOINS: 
+	-there are two types of joins: INNER and OUTER
+	-INNER joins are the default and most common type of joins. they happen when using the join keyword on its own. 
+		-results from an INNER join returns the rows from each table where the join condition is met
+	-there are also multiple OUTER joins:LEFT OUTER joins, RIGHT OUTER joins and FULL OUTER joins.
+		-LEFT OUTER: includes all the rows where there join condition is met AND all the rows from the left table
+		-RIGHT OUTER: includes all the rows where there join condition is met AND all the rows from the right table
+			-*many programs don't support a right join
+		-FULL OUTER: includes all the rows from both tables, including the rows were the join condition is met
+
+	JOIN syntax: 
+
+		SELECT column-names
+			FROM table-name1 
+				JOIN table-name2 
+				ON column-name1 = column-name2
+		WHERE condition
+
+
+	JOINs example: 
+
+		--------------------------------------------
+
+		table 1:customers
+
+			CustomerID	CustomerName	City
+			1 			name1			Toronto
+			2			name2			Halifax
+			3			name3			Montreal
+			4			name4			Vancouver
+
+		--------------------------------------------
+
+		table 2:orders
+
+			OrderID		CustomerID		EmployeeID
+			10387		2				AA
+			10388		7				AB
+			10389		12				AC
+			10390		4				AD
+
+		--------------------------------------------
+
+		INNER join syntax: this will return only the results that meet the join condition. it uses just the join clause. 
+
+			SELECT customers.CustomerName, orders.orderID
+			FROM customers
+				INNER JOIN orders
+				ON Customers.CustomerID=Orders.CustomerID
+			ORDER BY Customers.Customer.Name;	
+
+
+		RESULTS: 
+
+			CustomerName	OrderID
+			name2			10387
+			name4			10390
+
+
+		--------------------------------------------
+
+		LEFT OUTER join syntax: this will return the results that meet the join condition AND all the results on the left table.
+
+			SELECT Customers.CustomerName, Orders.OrderID
+			FROM Customers
+				LEFT OUTER JOIN Orders
+				ON Customers.CustomerID=Orders.CustomerID
+			ORDER BY Customers.Customer.Name;
+
+		RESULTS: 
+
+			CustomerName	OrderID
+			name1			NULL
+			name2			10387
+			name3			NULL
+			name4			10390
+
+
+		--------------------------------------------
+
+		RIGHT OUTER join: 
+
+			SELECT Customers.CustomerName, Orders.OrderID
+			FROM Customers
+				RIGHT OUTER JOIN Orders
+				ON Customers.CustomerID=Orders.CustomerID
+			ORDER BY Customers.Customer.Name;
+
+		RESULTS: 
+
+			CustomerName	OrderID
+			name2			10387
+			NULL			10388
+			NULL			10389
+			name4			10390
+
+		--------------------------------------------
+
+		FULL OUTER join: 
+
+			SELECT Customers.CustomerName, Orders.OrderID
+			FROM Customers
+				FULL OUTER JOIN Orders
+				ON Customers.CustomerID=Orders.CustomerID
+			ORDER BY Customers.Customer.Name;
+
+		RESULTS: 
+
+			CustomerName	OrderID
+			name1			NULL
+			name2			10387
+			name3			NULL
+			name4			10390
+			NULL			10388
+			NULL 			10389
+		--------------------------------------------
+
+
+
+
+
+
+
