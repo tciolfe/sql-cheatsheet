@@ -90,18 +90,24 @@ How to use ORDER BY:
 			//this returns the continents in descending order (first), followed by the regions in ascending order (second), and the names in ascending order (third)
 
 
+
+ -----------
+| FUNCTIONS |
+ -----------
+
+
 How to use COUNT: 
 	-typically, use COUNT(*), then use the WHERE clause to filter the information counted. 
 	-if you want to count values, they have to be grouped using GROUP BY. 
-
-
-
-
+	-can also count particular fields COUNT(last_name)
+	-DISTINCT is useful with COUNT 
+		ie: 
+			SELECT COUNT(DISTINCT last_name)
+		//Will show all the distinct last names in database
 
 
 What are CONDITIONAL EXPRESSIONS?:
 	-  		
-
 
 
 Using JOINS:
